@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import queryString                  from 'query-string'
 import io                           from 'socket.io-client'
-
-import './Chat.css'
 import InfoBar                      from "../InfoBar/InfoBar";
 import Input                        from "../Input/Input";
 import Messages                     from "../Messages/Messages";
 import TextContainer                from "../TextContainer/TextContainer";
+
+import './Chat.css'
 
 let socket;
 
@@ -31,9 +31,6 @@ const Chat = ({location}) => {
          if(error) {
             alert(error);
          }
-      });
-      socket.emit('usersLength', { users }, () => {
-         alert(users)
       });
    }, [ENDPOINT, location.search]);
 
