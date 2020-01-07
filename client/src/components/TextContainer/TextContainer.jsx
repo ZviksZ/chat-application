@@ -13,8 +13,7 @@ const TextContainer = ({ users }) => (
       </div>
       {
          users
-            ? (
-               <div>
+            ? <div>
                   <h1>People currently chatting:</h1>
                   <div className="activeContainer">
                      <h2>
@@ -27,7 +26,6 @@ const TextContainer = ({ users }) => (
                      </h2>
                   </div>
                </div>
-            )
             : null
       }
    </div>

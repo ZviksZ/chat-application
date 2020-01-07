@@ -5,7 +5,7 @@ import './Join.css'
 
 const Join = () => {
    const [name, setName] = useState('')
-   const [room, setRoom] = useState('')
+   const [room, setRoom] = useState('Room-1')
    
    return (
       <div className="joinOuterContainer">

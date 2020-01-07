@@ -13,7 +13,7 @@ let socket;
 const Chat = ({location}) => {
    const [name, setName] = useState('')
    const [room, setRoom] = useState('')
-   const [users, setUsers] = useState('');
+   const [users, setUsers] = useState([]);
    const [message, setMessage] = useState('')
    const [messages, setMessages] = useState([])
    
@@ -25,19 +25,32 @@ const Chat = ({location}) => {
       socket = io(ENDPOINT);
 
       setRoom(room);
-      setName(name)
-
+      setName(name);
+      
       socket.emit('join', { name, room }, (error) => {
          if(error) {
             alert(error);
          }
       });
+      socket.emit('usersLength', { users }, () => {
+         alert(users)
+      });
    }, [ENDPOINT, location.search]);
-   
+
    useEffect(() => {
       socket.on('message', (message) => {
-         setMessages([...messages, message])
+         setMessages([...messages, message ]);
+      });
+
+      socket.on('roomData', ({ users }) => {
+         setUsers(users);
       })
+
+      return () => {
+         socket.emit('disconnect');
+
+         socket.off();
+      }
    }, [messages])
    
    const sendMessage = (e) => {
@@ -47,6 +60,7 @@ const Chat = ({location}) => {
          socket.emit('sendMessage', message, () => setMessage(''))
       } 
    }
+   console.log(users)
    
    return (
       <div className="outerContainer">
